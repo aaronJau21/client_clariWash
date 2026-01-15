@@ -7,12 +7,10 @@ definePageMeta({
   layout: "system",
 });
 
-const config = useRuntimeConfig();
 const open = ref(false);
 
-const { data, refresh } = await useFetch<IService[]>(
-  `${config.public.apiUrl}/services/public`
-);
+const toast = useToast();
+const { data, refresh, error } = await useFetch<IService[]>("/api/services");
 
 const columns = ref<TableColumn<IService>[]>([
   {
@@ -57,6 +55,20 @@ async function handleServiceCreated() {
 async function handleServiceUpdated() {
   await refresh();
 }
+
+watch(
+  () => error.value,
+  (newError) => {
+    if (import.meta.client && newError?.data.statusCode === 401) {
+      toast.add({
+        title: "No tienes permisos para acceder a esta página",
+        description: newError?.data.message,
+        color: "error",
+      });
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>

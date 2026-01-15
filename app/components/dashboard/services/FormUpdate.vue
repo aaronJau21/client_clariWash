@@ -34,6 +34,7 @@ async function handleUpdate() {
     await $fetch(`${config.public.apiUrl}/services/${props.service.id}`, {
       method: "PUT",
       body: state,
+      credentials: "include",
     });
 
     toast.add({

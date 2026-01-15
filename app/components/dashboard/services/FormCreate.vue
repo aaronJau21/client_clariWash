@@ -34,6 +34,7 @@ async function handleSubmit() {
     const res = await $fetch(`${config.public.apiUrl}/services`, {
       method: "POST",
       body: state,
+      credentials: "include",
     });
 
     console.log(res);

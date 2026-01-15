@@ -11,6 +11,7 @@ const schema = z.object({
 });
 
 const config = useRuntimeConfig();
+const loading = ref(false);
 const state = reactive({
   email: "",
   password: "",
@@ -18,20 +19,22 @@ const state = reactive({
 
 const toast = useToast();
 async function handleSubmit() {
+  loading.value = true;
   try {
     const res = await $fetch(`${config.public.apiUrl}/auth/login`, {
       method: "POST",
       body: state,
       credentials: "include",
     });
-    console.log(res);
+    navigateTo("/dashboard");
   } catch (error: any) {
-    console.log(error);
     toast.add({
       title: "Error al iniciar sesión",
-      description: error.data.message,
+      description: error?.data?.message || "Error al iniciar sesión",
       color: "error",
     });
+  } finally {
+    loading.value = false;
   }
 }
 </script>
@@ -55,6 +58,6 @@ async function handleSubmit() {
         class="w-full"
       />
     </UFormField>
-    <UButton type="submit">Iniciar sesión</UButton>
+    <UButton type="submit" :loading="loading">Iniciar sesión</UButton>
   </UForm>
 </template>

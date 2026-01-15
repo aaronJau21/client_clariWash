@@ -5,6 +5,7 @@ import FormUpdate from "~/components/dashboard/services/FormUpdate.vue";
 import type { IService } from "~/interface/services/service.interface";
 definePageMeta({
   layout: "system",
+  middleware: "auth",
 });
 
 const open = ref(false);

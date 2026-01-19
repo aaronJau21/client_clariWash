@@ -62,6 +62,11 @@ async function handleCreateClient() {
     await refresh()
     isCreateClientOpen.value = false
 }
+
+const pagination = ref<{ pageIndex: number, pageSize: number }>({
+  pageIndex: 0,
+  pageSize: 5
+})
 </script>
 
 <template>
@@ -101,10 +106,20 @@ async function handleCreateClient() {
                 <UButton color="primary" variant="ghost" icon="i-lucide-delete" aria-label="Actions" class="cursor-pointer" label="Eliminar" />
             </template>
         </UTable>
+
         <UEmpty v-else>
             <template #description>
                 <p>No hay clientes registrados</p>
             </template>
         </UEmpty>
+
+        <div class="flex justify-end border-t border-default pt-4 px-4">
+            <UPagination
+                :page="pagination.pageIndex + 1"
+                :items-per-page="pagination.pageSize"
+                :total="data?.length || 0"
+                @update:page="(p) => pagination.pageIndex = p - 1"
+            />
+        </div>
     </div>
 </template>

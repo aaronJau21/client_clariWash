@@ -31,13 +31,11 @@ const state = reactive({
 
 async function handleSubmit() {
   try {
-    const res = await $fetch(`${config.public.apiUrl}/services`, {
+    await $fetch(`${config.public.apiUrl}/services`, {
       method: "POST",
       body: state,
       credentials: "include",
     });
-
-    console.log(res);
     toast.add({
       title: "Servicio creado correctamente",
       description: "El servicio ha sido creado correctamente",

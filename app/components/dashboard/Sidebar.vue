@@ -16,7 +16,13 @@ const items = computed<NavigationMenuItem[][]>(() => [
       label: "Servicios",
       icon: "i-lucide-sparkles",
       to: "/dashboard/services",
-      active: route.path.startsWith("/dashboard/servicios"),
+      active: route.path.startsWith("/dashboard/services"),
+    },
+    {
+      label: "Clientes",
+      icon: "i-lucide-users",
+      to: "/dashboard/clients",
+      active: route.path.startsWith("/dashboard/clients"),
     },
     // {
     //   label: "Configuración",

@@ -96,7 +96,7 @@ const { data } = await useFetch<IService[]>(
             <div
               class="flex items-center gap-2 text-primary dark:text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             >
-              <span class="text-sm font-semibold">Saber más</span>
+              <NuxtLink :to="`/services/${service.id}`" class="text-sm font-semibold">Saber más</NuxtLink>
               <UIcon
                 name="i-heroicons-arrow-right"
                 class="w-4 h-4 group-hover:translate-x-1 transition-transform"
